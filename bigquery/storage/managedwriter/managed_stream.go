@@ -300,6 +300,7 @@ func (ms *ManagedStream) AppendRows(ctx context.Context, data [][]byte, opts ...
 	// Ensure we build the request and pending write with a consistent schema version.
 	curTemplate := ms.curTemplate
 	req := ms.buildRequest(data)
+	req.WriteStream = ms.streamSettings.streamID
 	pw := newPendingWrite(ctx, ms, req, curTemplate, ms.streamSettings.streamID, ms.streamSettings.TraceID)
 	// apply AppendOption opts
 	for _, opt := range opts {
